@@ -19,7 +19,7 @@ test.describe('verify-location screen', () => {
         route.fulfill({
           status: 200,
           contentType: 'application/json',
-          body: JSON.stringify(MOCK_NEIGHBORHOODS[0]),
+          body: JSON.stringify([MOCK_NEIGHBORHOODS[0]]),
         });
       }, 2000);
     });
@@ -32,7 +32,7 @@ test.describe('verify-location screen', () => {
   test('shows found neighborhood when GPS matches', async ({ page, context }) => {
     await mockGeolocation(context, SEOUL_YEOKSAM.latitude, SEOUL_YEOKSAM.longitude, page);
     await setupNotVerifiedUser(page);
-    await mockRpc(page, 'find_neighborhood_by_point', MOCK_NEIGHBORHOODS[0]);
+    await mockRpc(page, 'find_neighborhood_by_point', [MOCK_NEIGHBORHOODS[0]]);
 
     await page.goto('/');
 
@@ -57,7 +57,7 @@ test.describe('verify-location screen', () => {
   test('confirms neighborhood and redirects to home tabs', async ({ page, context }) => {
     await mockGeolocation(context, SEOUL_YEOKSAM.latitude, SEOUL_YEOKSAM.longitude, page);
     await setupNotVerifiedUser(page);
-    await mockRpc(page, 'find_neighborhood_by_point', MOCK_NEIGHBORHOODS[0]);
+    await mockRpc(page, 'find_neighborhood_by_point', [MOCK_NEIGHBORHOODS[0]]);
     // setupNotVerifiedUser's mockUsersApi handles PATCH by merging updates,
     // so updateLocationVerification will succeed and router.replace('/(tabs)') fires.
     // No extra users route needed here.

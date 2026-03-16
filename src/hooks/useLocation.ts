@@ -4,6 +4,7 @@ import { requestLocationPermission, getCurrentPosition } from '@/lib/location';
 interface LocationState {
   latitude: number;
   longitude: number;
+  accuracy: number | null;
 }
 
 interface UseLocationResult {

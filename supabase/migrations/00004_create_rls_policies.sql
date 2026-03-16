@@ -200,3 +200,10 @@ CREATE POLICY "reports_insert_authenticated"
     WITH CHECK (auth.uid() IS NOT NULL AND reporter_id = auth.uid());
 
 -- No SELECT / UPDATE / DELETE for regular users (admin access only via service role)
+
+-- ============================================================
+-- neighborhoods
+-- ============================================================
+ALTER TABLE neighborhoods ENABLE ROW LEVEL SECURITY;
+CREATE POLICY "neighborhoods_select_public" ON neighborhoods FOR SELECT USING (true);
+CREATE POLICY "neighborhoods_insert_authenticated" ON neighborhoods FOR INSERT TO authenticated WITH CHECK (true);

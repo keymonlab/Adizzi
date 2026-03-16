@@ -5,12 +5,13 @@ export async function requestLocationPermission(): Promise<boolean> {
   return status === Location.PermissionStatus.GRANTED;
 }
 
-export async function getCurrentPosition(): Promise<{ latitude: number; longitude: number } | null> {
+export async function getCurrentPosition(): Promise<{ latitude: number; longitude: number; accuracy: number | null }> {
   const location = await Location.getCurrentPositionAsync({
     accuracy: Location.Accuracy.Balanced,
   });
   return {
     latitude: location.coords.latitude,
     longitude: location.coords.longitude,
+    accuracy: location.coords.accuracy ?? null,
   };
 }

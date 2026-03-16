@@ -37,9 +37,13 @@ interface FoundViewProps {
   onConfirm: () => void;
   onRetry: () => void;
   confirming: boolean;
+  accuracy: number | null;
 }
 
-function FoundView({ neighborhood, onConfirm, onRetry, confirming }: FoundViewProps) {
+function FoundView({ neighborhood, onConfirm, onRetry, confirming, accuracy }: FoundViewProps) {
+  const lowAccuracy = accuracy !== null && accuracy > 1000;
+  const accuracyKm = accuracy !== null ? Math.round(accuracy / 100) / 10 : null;
+
   return (
     <View style={styles.centered}>
       <Text style={styles.bigIcon}>📌</Text>
@@ -50,6 +54,11 @@ function FoundView({ neighborhood, onConfirm, onRetry, confirming }: FoundViewPr
         </Text>
       ) : (
         <Text style={styles.neighborhoodDetail}>{neighborhood.city}</Text>
+      )}
+      {lowAccuracy && accuracyKm !== null && (
+        <Text style={styles.accuracyWarning}>
+          GPS 정확도가 낮아요 (약 {accuracyKm}km). 직접 동네를 선택하는 것을 추천해요.
+        </Text>
       )}
       <Text style={[styles.title, { marginTop: 24 }]}>이 동네가 맞으세요?</Text>
       <View style={styles.buttonRow}>
@@ -275,6 +284,7 @@ export default function VerifyLocationScreen() {
             onConfirm={() => confirmNeighborhood(foundNeighborhood)}
             onRetry={handleRetry}
             confirming={confirming}
+            accuracy={location?.accuracy ?? null}
           />
         )}
 
@@ -350,6 +360,14 @@ const styles = StyleSheet.create({
     fontSize: 15,
     color: Colors.textMuted,
     textAlign: 'center',
+  },
+  accuracyWarning: {
+    fontSize: 13,
+    color: Colors.warning,
+    textAlign: 'center',
+    marginTop: 12,
+    lineHeight: 18,
+    paddingHorizontal: 16,
   },
   buttonRow: {
     flexDirection: 'row',

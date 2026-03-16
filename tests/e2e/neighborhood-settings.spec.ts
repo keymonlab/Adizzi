@@ -20,7 +20,7 @@ test.describe('Neighborhood settings screen', () => {
     const currentNeighborhood = MOCK_NEIGHBORHOODS.find(
       (n) => n.id === MOCK_USER.neighborhood_id,
     )!;
-    await expect(page.getByText(currentNeighborhood.name)).toBeVisible({ timeout: 10_000 });
+    await expect(page.getByText(currentNeighborhood.name).first()).toBeVisible({ timeout: 10_000 });
   });
 
   test('shows all sections', async ({ page }) => {

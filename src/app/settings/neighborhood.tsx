@@ -135,6 +135,12 @@ export default function NeighborhoodScreen() {
             style={styles.verifyButton}
           />
 
+          {location?.accuracy !== undefined && location.accuracy !== null && location.accuracy > 1000 && (
+            <Text style={styles.accuracyWarning}>
+              GPS 정확도가 낮아요 (약 {Math.round(location.accuracy / 100) / 10}km). 직접 동네를 선택하는 것을 추천해요.
+            </Text>
+          )}
+
           {detectedNeighborhood && (
             <View style={styles.detectedBox}>
               <Text style={styles.detectedLabel}>감지된 동네</Text>
@@ -321,6 +327,12 @@ const styles = StyleSheet.create({
   noDetectedText: {
     fontSize: FontSize.sm,
     color: Colors.textSecondary,
+    marginTop: Spacing.xs,
+  },
+  accuracyWarning: {
+    fontSize: FontSize.sm,
+    color: Colors.warning,
+    lineHeight: 18,
     marginTop: Spacing.xs,
   },
   warningBox: {
