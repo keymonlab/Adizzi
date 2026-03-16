@@ -1,0 +1,43 @@
+# dependencies
+node_modules/
+
+# env files (NEVER commit)
+.env
+.env.local
+.env.production
+.env.*.local
+
+# Expo
+.expo/
+dist/
+web-build/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# build
+*.tsbuildinfo
+
+# superpowers brainstorm sessions
+.superpowers/
+
+# OMC state
+.omc/
+
+# Playwright
+test-results/
+playwright-report/
+.playwright-mcp/
+
+# MCP config (contains local paths)
+.mcp.json
+
+# Claude agents (local config)
+.claude/

@@ -1,0 +1,67 @@
+{
+  "expo": {
+    "name": "mampa",
+    "slug": "mampa",
+    "scheme": "mampa",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "light",
+    "splash": {
+      "image": "./assets/splash-icon.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#ffffff"
+    },
+    "ios": {
+      "supportsTablet": true,
+      "infoPlist": {
+        "NSLocationWhenInUseUsageDescription": "맘파는 내 동네 분실물 게시글을 보여주기 위해 현재 위치를 사용합니다.",
+        "NSLocationAlwaysAndWhenInUseUsageDescription": "맘파는 내 동네 분실물 게시글을 보여주기 위해 현재 위치를 사용합니다."
+      }
+    },
+    "android": {
+      "adaptiveIcon": {
+        "backgroundColor": "#E6F4FE",
+        "foregroundImage": "./assets/android-icon-foreground.png",
+        "backgroundImage": "./assets/android-icon-background.png",
+        "monochromeImage": "./assets/android-icon-monochrome.png"
+      },
+      "predictiveBackGestureEnabled": false,
+      "permissions": [
+        "ACCESS_FINE_LOCATION",
+        "ACCESS_COARSE_LOCATION"
+      ],
+      "intentFilters": [
+        {
+          "action": "VIEW",
+          "autoVerify": true,
+          "data": [
+            {
+              "scheme": "mampa"
+            }
+          ],
+          "category": [
+            "BROWSABLE",
+            "DEFAULT"
+          ]
+        }
+      ]
+    },
+    "web": {
+      "favicon": "./assets/favicon.png",
+      "bundler": "metro"
+    },
+    "plugins": [
+      "expo-router",
+      "expo-secure-store",
+      "expo-web-browser",
+      [
+        "expo-location",
+        {
+          "locationWhenInUsePermission": "맘파는 내 동네 분실물 게시글을 보여주기 위해 현재 위치를 사용합니다.",
+          "locationAlwaysAndWhenInUsePermission": "맘파는 내 동네 분실물 게시글을 보여주기 위해 현재 위치를 사용합니다."
+        }
+      ]
+    ]
+  }
+}
