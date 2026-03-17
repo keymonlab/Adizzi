@@ -1,6 +1,6 @@
-# Mampa Supabase API & 데이터베이스 전체 구조
+# Adizzi(어디찌) Supabase API & 데이터베이스 전체 구조
 
-> 이 문서는 mampa 앱의 Supabase 백엔드 전체 구조를 **서비스 기능별**로 정리한 레퍼런스입니다.
+> 이 문서는 어디찌(Adizzi) 앱의 Supabase 백엔드 전체 구조를 **서비스 기능별**로 정리한 레퍼런스입니다.
 > 테이블, 버킷, Edge Function, RLS 정책, 서비스 레이어를 한눈에 파악할 수 있습니다.
 
 ---

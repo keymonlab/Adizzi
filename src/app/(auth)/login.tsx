@@ -31,7 +31,7 @@ export default function LoginScreen() {
         {/* Logo / Hero */}
         <View style={styles.heroSection}>
           <View style={styles.logoContainer}>
-            <Text style={styles.logoText}>mampa</Text>
+            <Text style={styles.logoText}>어디찌</Text>
           </View>
           <Text style={styles.tagline}>우리 동네 분실물 찾기</Text>
           <Text style={styles.description}>
@@ -64,7 +64,7 @@ export default function LoginScreen() {
               setDevLoading(true);
               try {
                 console.log('[Dev Login] Attempting sign in...');
-                await signInWithEmail('test@mampa.dev', 'testpass1234');
+                await signInWithEmail('test@adizzi.dev', 'testpass1234');
                 console.log('[Dev Login] Sign in successful');
                 router.replace('/');
               } catch (err) {
@@ -77,7 +77,7 @@ export default function LoginScreen() {
             }}
           >
             <Text style={styles.devButtonText}>
-              {devLoading ? '로그인 중...' : '🔧 Dev Login (test@mampa.dev)'}
+              {devLoading ? '로그인 중...' : '🔧 Dev Login (test@adizzi.dev)'}
             </Text>
           </Pressable>
         )}

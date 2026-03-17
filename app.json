@@ -1,8 +1,8 @@
 {
   "expo": {
-    "name": "mampa",
-    "slug": "mampa",
-    "scheme": "mampa",
+    "name": "어디찌",
+    "slug": "adizzi",
+    "scheme": "adizzi",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -15,8 +15,8 @@
     "ios": {
       "supportsTablet": true,
       "infoPlist": {
-        "NSLocationWhenInUseUsageDescription": "맘파는 내 동네 분실물 게시글을 보여주기 위해 현재 위치를 사용합니다.",
-        "NSLocationAlwaysAndWhenInUseUsageDescription": "맘파는 내 동네 분실물 게시글을 보여주기 위해 현재 위치를 사용합니다."
+        "NSLocationWhenInUseUsageDescription": "어디찌는 내 동네 분실물 게시글을 보여주기 위해 현재 위치를 사용합니다.",
+        "NSLocationAlwaysAndWhenInUseUsageDescription": "어디찌는 내 동네 분실물 게시글을 보여주기 위해 현재 위치를 사용합니다."
       }
     },
     "android": {
@@ -37,7 +37,7 @@
           "autoVerify": true,
           "data": [
             {
-              "scheme": "mampa"
+              "scheme": "adizzi"
             }
           ],
           "category": [
@@ -58,8 +58,8 @@
       [
         "expo-location",
         {
-          "locationWhenInUsePermission": "맘파는 내 동네 분실물 게시글을 보여주기 위해 현재 위치를 사용합니다.",
-          "locationAlwaysAndWhenInUsePermission": "맘파는 내 동네 분실물 게시글을 보여주기 위해 현재 위치를 사용합니다."
+          "locationWhenInUsePermission": "어디찌는 내 동네 분실물 게시글을 보여주기 위해 현재 위치를 사용합니다.",
+          "locationAlwaysAndWhenInUsePermission": "어디찌는 내 동네 분실물 게시글을 보여주기 위해 현재 위치를 사용합니다."
         }
       ]
     ]

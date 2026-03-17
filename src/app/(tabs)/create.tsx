@@ -54,9 +54,9 @@ export default function CreateScreen(): React.ReactElement {
       description,
       category,
       images,
-      verificationEnabled,
-      verificationQuestion,
-      verificationAnswer,
+      verificationEnabled: postType === 'found' ? verificationEnabled : false,
+      verificationQuestion: postType === 'found' ? verificationQuestion : '',
+      verificationAnswer: postType === 'found' ? verificationAnswer : '',
     });
 
     if (Object.keys(formErrors).length > 0) {
@@ -82,8 +82,8 @@ export default function CreateScreen(): React.ReactElement {
           location_name: location?.name ?? null,
           image_urls: imageUrls,
           neighborhood_id: profile.neighborhood_id,
-          verification_question: verificationEnabled ? verificationQuestion.trim() : null,
-          verification_answer_hash: verificationEnabled ? verificationAnswer.trim() : null,
+          verification_question: postType === 'found' && verificationEnabled ? verificationQuestion.trim() : null,
+          verification_answer_hash: postType === 'found' && verificationEnabled ? verificationAnswer.trim() : null,
         },
         authorId: user.id,
       });
@@ -113,7 +113,12 @@ export default function CreateScreen(): React.ReactElement {
       <View style={styles.typeSelector}>
         <TouchableOpacity
           style={[styles.typeButton, postType === 'lost' && styles.typeButtonActive]}
-          onPress={() => setPostType('lost')}
+          onPress={() => {
+            setPostType('lost');
+            setVerificationEnabled(false);
+            setVerificationQuestion('');
+            setVerificationAnswer('');
+          }}
         >
           <Text style={[styles.typeButtonText, postType === 'lost' && styles.typeButtonTextActive]}>
             잃어버렸어요
@@ -191,26 +196,28 @@ export default function CreateScreen(): React.ReactElement {
           <LocationPicker value={location} onChange={setLocation} />
         </View>
 
-        <View style={styles.section}>
-          <VerificationForm
-            enabled={verificationEnabled}
-            question={verificationQuestion}
-            answer={verificationAnswer}
-            onToggle={setVerificationEnabled}
-            onQuestionChange={(t) => {
-              setVerificationQuestion(t);
-              if (errors.verificationQuestion)
-                setErrors((prev) => ({ ...prev, verificationQuestion: '' }));
-            }}
-            onAnswerChange={(t) => {
-              setVerificationAnswer(t);
-              if (errors.verificationAnswer)
-                setErrors((prev) => ({ ...prev, verificationAnswer: '' }));
-            }}
-            questionError={errors.verificationQuestion}
-            answerError={errors.verificationAnswer}
-          />
-        </View>
+        {postType === 'found' && (
+          <View style={styles.section}>
+            <VerificationForm
+              enabled={verificationEnabled}
+              question={verificationQuestion}
+              answer={verificationAnswer}
+              onToggle={setVerificationEnabled}
+              onQuestionChange={(t) => {
+                setVerificationQuestion(t);
+                if (errors.verificationQuestion)
+                  setErrors((prev) => ({ ...prev, verificationQuestion: '' }));
+              }}
+              onAnswerChange={(t) => {
+                setVerificationAnswer(t);
+                if (errors.verificationAnswer)
+                  setErrors((prev) => ({ ...prev, verificationAnswer: '' }));
+              }}
+              questionError={errors.verificationQuestion}
+              answerError={errors.verificationAnswer}
+            />
+          </View>
+        )}
 
         <Button
           title="등록하기"

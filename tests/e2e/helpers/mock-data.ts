@@ -78,7 +78,7 @@ export const MOCK_SESSION = {
   expires_at: Math.floor(Date.now() / 1000) + 3600,
   user: {
     id: MOCK_USER.id,
-    email: 'test@mampa.dev',
+    email: 'test@adizzi.dev',
     app_metadata: {},
     user_metadata: {},
     aud: 'authenticated',
