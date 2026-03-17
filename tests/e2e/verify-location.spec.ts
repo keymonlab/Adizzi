@@ -1,6 +1,6 @@
 import { test, expect } from './fixtures';
 import { setupNotVerifiedUser } from './helpers/auth';
-import { mockRpc, mockUsersApi } from './helpers/api-mocks';
+import { mockKakaoReverseGeocode, mockNeighborhoodsApi } from './helpers/api-mocks';
 import { MOCK_NEIGHBORHOODS, MOCK_USER } from './helpers/mock-data';
 import {
   mockGeolocation,
@@ -13,16 +13,24 @@ test.describe('verify-location screen', () => {
   test('shows loading state on initial entry', async ({ page, context }) => {
     await mockGeolocation(context, SEOUL_YEOKSAM.latitude, SEOUL_YEOKSAM.longitude, page);
     await setupNotVerifiedUser(page);
-    // Delay the RPC so we can catch the loading state before it resolves
-    await page.route('**/rest/v1/rpc/find_neighborhood_by_point', (route) => {
+    // Delay the Kakao API so we can catch the loading state before it resolves
+    await page.route('**/dapi.kakao.com/v2/local/geo/coord2regioncode.json*', (route) => {
       setTimeout(() => {
         route.fulfill({
           status: 200,
           contentType: 'application/json',
-          body: JSON.stringify([MOCK_NEIGHBORHOODS[0]]),
+          body: JSON.stringify({
+            documents: [{
+              region_type: 'H',
+              region_1depth_name: MOCK_NEIGHBORHOODS[0].city,
+              region_2depth_name: MOCK_NEIGHBORHOODS[0].district,
+              region_3depth_name: MOCK_NEIGHBORHOODS[0].name,
+            }],
+          }),
         });
       }, 2000);
     });
+    await mockNeighborhoodsApi(page, MOCK_NEIGHBORHOODS);
 
     await page.goto('/');
 
@@ -32,7 +40,8 @@ test.describe('verify-location screen', () => {
   test('shows found neighborhood when GPS matches', async ({ page, context }) => {
     await mockGeolocation(context, SEOUL_YEOKSAM.latitude, SEOUL_YEOKSAM.longitude, page);
     await setupNotVerifiedUser(page);
-    await mockRpc(page, 'find_neighborhood_by_point', [MOCK_NEIGHBORHOODS[0]]);
+    await mockKakaoReverseGeocode(page, MOCK_NEIGHBORHOODS[0]);
+    await mockNeighborhoodsApi(page, MOCK_NEIGHBORHOODS);
 
     await page.goto('/');
 
@@ -45,7 +54,7 @@ test.describe('verify-location screen', () => {
   test('shows not-found state when no neighborhood matches GPS coordinates', async ({ page, context }) => {
     await mockGeolocation(context, OUTSIDE_SERVICE.latitude, OUTSIDE_SERVICE.longitude, page);
     await setupNotVerifiedUser(page);
-    await mockRpc(page, 'find_neighborhood_by_point', null);
+    await mockKakaoReverseGeocode(page, null);
 
     await page.goto('/');
 
@@ -57,10 +66,8 @@ test.describe('verify-location screen', () => {
   test('confirms neighborhood and redirects to home tabs', async ({ page, context }) => {
     await mockGeolocation(context, SEOUL_YEOKSAM.latitude, SEOUL_YEOKSAM.longitude, page);
     await setupNotVerifiedUser(page);
-    await mockRpc(page, 'find_neighborhood_by_point', [MOCK_NEIGHBORHOODS[0]]);
-    // setupNotVerifiedUser's mockUsersApi handles PATCH by merging updates,
-    // so updateLocationVerification will succeed and router.replace('/(tabs)') fires.
-    // No extra users route needed here.
+    await mockKakaoReverseGeocode(page, MOCK_NEIGHBORHOODS[0]);
+    await mockNeighborhoodsApi(page, MOCK_NEIGHBORHOODS);
 
     await page.goto('/');
 

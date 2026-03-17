@@ -13,8 +13,8 @@ test.describe('Neighborhood settings screen', () => {
     // Header title
     await expect(page.getByText('동네 설정')).toBeVisible({ timeout: 15_000 });
 
-    // Current neighborhood section label
-    await expect(page.getByText('현재 동네')).toBeVisible({ timeout: 10_000 });
+    // Current neighborhood section label (may appear in multiple places)
+    await expect(page.getByText('현재 동네').first()).toBeVisible({ timeout: 10_000 });
 
     // MOCK_USER.neighborhood_id is 'neighborhood-001' → name '역삼동'
     const currentNeighborhood = MOCK_NEIGHBORHOODS.find(
@@ -56,7 +56,7 @@ test.describe('Neighborhood settings screen', () => {
 
     // All neighborhoods from MOCK_NEIGHBORHOODS should appear in the list
     for (const neighborhood of MOCK_NEIGHBORHOODS) {
-      await expect(page.getByText(neighborhood.name)).toBeVisible({ timeout: 10_000 });
+      await expect(page.getByText(neighborhood.name).first()).toBeVisible({ timeout: 10_000 });
     }
   });
 

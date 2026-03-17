@@ -308,13 +308,41 @@ export async function mockNeighborhoodsApi(page: Page, neighborhoods: any[]) {
 
       if (method === 'GET') {
         const url = new URL(request.url());
+        let data = neighborhoods;
+
+        // Filter by id
         const idFilter = url.searchParams.get('id');
-        const data = idFilter
-          ? neighborhoods.filter(
-              (n) => String(n.id) === idFilter.replace('eq.', ''),
-            )
-          : neighborhoods;
+        if (idFilter) {
+          data = data.filter((n) => String(n.id) === idFilter.replace('eq.', ''));
+        }
+        // Filter by name (used by findByCoordinates after Kakao geocoding)
+        const nameFilter = url.searchParams.get('name');
+        if (nameFilter) {
+          data = data.filter((n) => n.name === nameFilter.replace('eq.', ''));
+        }
+        // Filter by city
+        const cityFilter = url.searchParams.get('city');
+        if (cityFilter) {
+          data = data.filter((n) => n.city === cityFilter.replace('eq.', ''));
+        }
+        // Filter by district
+        const districtFilter = url.searchParams.get('district');
+        if (districtFilter) {
+          data = data.filter((n) => n.district === districtFilter.replace('eq.', ''));
+        }
+
         fulfillData(route, request, data);
+      } else if (method === 'POST') {
+        // Auto-insert new neighborhood (used by findByCoordinates)
+        const body = request.postData();
+        const incoming = body ? JSON.parse(body) : {};
+        const inserted = { id: 'neighborhood-auto', created_at: new Date().toISOString(), boundary: null, ...incoming };
+        const single = isSingleRequest(request);
+        route.fulfill({
+          status: 201,
+          contentType: single ? 'application/vnd.pgrst.object+json' : 'application/json',
+          body: JSON.stringify(single ? inserted : [inserted]),
+        });
       } else {
         route.continue();
       }
@@ -425,6 +453,44 @@ export async function mockRpc(
       });
     },
   );
+}
+
+// ---------------------------------------------------------------------------
+// Kakao reverse geocoding mock
+// ---------------------------------------------------------------------------
+
+/**
+ * Mock the Kakao reverse geocoding API used by findByCoordinates.
+ * @param neighborhood - A neighborhood object to return, or null for "not found".
+ */
+export async function mockKakaoReverseGeocode(
+  page: Page,
+  neighborhood: { name: string; city: string; district: string } | null,
+) {
+  await page.route('**/dapi.kakao.com/v2/local/geo/coord2regioncode.json*', (route) => {
+    if (neighborhood) {
+      route.fulfill({
+        status: 200,
+        contentType: 'application/json',
+        body: JSON.stringify({
+          documents: [
+            {
+              region_type: 'H',
+              region_1depth_name: neighborhood.city,
+              region_2depth_name: neighborhood.district,
+              region_3depth_name: neighborhood.name,
+            },
+          ],
+        }),
+      });
+    } else {
+      route.fulfill({
+        status: 200,
+        contentType: 'application/json',
+        body: JSON.stringify({ documents: [] }),
+      });
+    }
+  });
 }
 
 // ---------------------------------------------------------------------------

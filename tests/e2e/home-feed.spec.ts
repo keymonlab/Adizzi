@@ -53,7 +53,7 @@ test.describe('Home feed', () => {
 
     await page.goto('/');
 
-    await expect(page.getByText('우리 동네')).toBeVisible({ timeout: 15_000 });
+    await expect(page.getByText('우리 동네', { exact: true })).toBeVisible({ timeout: 15_000 });
     // PostList ListEmptyComponent
     await expect(page.getByText('아직 게시물이 없어요')).toBeVisible({ timeout: 10_000 });
   });
