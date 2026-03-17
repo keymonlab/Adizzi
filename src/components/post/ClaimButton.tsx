@@ -86,7 +86,7 @@ export function ClaimButton({ post, userId }: ClaimButtonProps) {
   if (claimStatus === 'verified') {
     return (
       <View style={[styles.statusBanner, styles.statusVerified]}>
-        <Text style={styles.statusText}>인증 완료! 주인님이 확인했어요</Text>
+        <Text style={styles.statusText}>{post.post_type === 'lost' ? '발견 확인 완료!' : '인증 완료! 주인님이 확인했어요'}</Text>
       </View>
     );
   }
@@ -95,7 +95,7 @@ export function ClaimButton({ post, userId }: ClaimButtonProps) {
   if (claimStatus === 'pending') {
     return (
       <View style={[styles.statusBanner, styles.statusPending]}>
-        <Text style={styles.statusText}>인증 신청 중... 주인님 확인을 기다리고 있어요</Text>
+        <Text style={styles.statusText}>{post.post_type === 'lost' ? '발견 신고 중... 글쓴이 확인을 기다리고 있어요' : '인증 신청 중... 주인님 확인을 기다리고 있어요'}</Text>
       </View>
     );
   }
@@ -123,7 +123,7 @@ export function ClaimButton({ post, userId }: ClaimButtonProps) {
       )}
 
       <Button
-        title={isRetry ? `다시 시도하기 (${remainingAttempts}회 남음)` : '제 물건이에요!'}
+        title={isRetry ? `다시 시도하기 (${remainingAttempts}회 남음)` : post.post_type === 'lost' ? '찾았어요!' : '제 물건이에요!'}
         onPress={handlePress}
         variant="primary"
         size="lg"
@@ -144,7 +144,7 @@ export function ClaimButton({ post, userId }: ClaimButtonProps) {
           onPress={handleModalClose}
         >
           <TouchableOpacity activeOpacity={1} style={styles.modalCard}>
-            <Text style={styles.modalTitle}>소유 확인</Text>
+            <Text style={styles.modalTitle}>{post.post_type === 'lost' ? '발견 확인' : '소유 확인'}</Text>
             <Text style={styles.modalQuestion}>{post.verification_question}</Text>
 
             {isRetry && (
