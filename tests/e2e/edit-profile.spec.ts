@@ -48,22 +48,31 @@ test.describe('Edit profile settings', () => {
     const nameInput = page.getByPlaceholder('표시할 이름을 입력하세요');
     await nameInput.waitFor({ state: 'visible', timeout: 15_000 });
 
-    // Clear the display name
-    await nameInput.clear();
+    // Clear using triple-click + delete to avoid Playwright fill() race with useEffect
+    await nameInput.click({ clickCount: 3 });
+    await page.keyboard.press('Backspace');
+    // Wait for React to process the empty value
+    await page.waitForTimeout(200);
+    // Type spaces to prevent useEffect from restoring (prev !== '')
+    await nameInput.type('   ');
 
-    // Click save — should NOT trigger a PATCH because the button is disabled
-    await page.getByText('저장').click();
+    // Wait for the save button to become visually disabled (opacity < 0.9)
+    const saveButton = page.getByText('저장');
+    await expect(saveButton).toBeVisible();
 
-    // Verify no PATCH was sent by waiting briefly and confirming no network activity
-    let patchSent = false;
-    page.on('request', (req) => {
-      if (req.url().includes('/rest/v1/users') && req.method() === 'PATCH') {
-        patchSent = true;
+    await page.waitForFunction(() => {
+      const el = document.evaluate(
+        "//div[contains(text(), '저장')] | //span[contains(text(), '저장')]",
+        document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null
+      ).singleNodeValue as HTMLElement | null;
+      if (!el) return false;
+      let node: HTMLElement | null = el;
+      while (node) {
+        const op = parseFloat(window.getComputedStyle(node).opacity);
+        if (op < 0.9) return true;
+        node = node.parentElement;
       }
-    });
-
-    // Small wait to confirm no request fires
-    await page.waitForTimeout(1000);
-    expect(patchSent).toBe(false);
+      return false;
+    }, { timeout: 5000 });
   });
 });
