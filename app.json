@@ -13,10 +13,14 @@
       "backgroundColor": "#ffffff"
     },
     "ios": {
+      "bundleIdentifier": "com.adizzi.app",
       "supportsTablet": true,
       "infoPlist": {
         "NSLocationWhenInUseUsageDescription": "어디찌는 내 동네 분실물 게시글을 보여주기 위해 현재 위치를 사용합니다.",
-        "NSLocationAlwaysAndWhenInUseUsageDescription": "어디찌는 내 동네 분실물 게시글을 보여주기 위해 현재 위치를 사용합니다."
+        "NSLocationAlwaysAndWhenInUseUsageDescription": "어디찌는 내 동네 분실물 게시글을 보여주기 위해 현재 위치를 사용합니다.",
+        "NSContactsUsageDescription": "어디찌는 친구를 찾기 위해 연락처를 사용합니다.",
+        "NSPhotoLibraryUsageDescription": "어디찌는 분실물 사진을 등록하기 위해 사진 라이브러리를 사용합니다.",
+        "NSCameraUsageDescription": "어디찌는 분실물 사진을 촬영하기 위해 카메라를 사용합니다."
       }
     },
     "android": {
@@ -60,6 +64,26 @@
         {
           "locationWhenInUsePermission": "어디찌는 내 동네 분실물 게시글을 보여주기 위해 현재 위치를 사용합니다.",
           "locationAlwaysAndWhenInUsePermission": "어디찌는 내 동네 분실물 게시글을 보여주기 위해 현재 위치를 사용합니다."
+        }
+      ],
+      [
+        "expo-notifications",
+        {
+          "icon": "./assets/icon.png",
+          "color": "#4A90D9"
+        }
+      ],
+      [
+        "expo-contacts",
+        {
+          "contactsPermission": "어디찌는 친구를 찾기 위해 연락처를 사용합니다."
+        }
+      ],
+      [
+        "expo-image-picker",
+        {
+          "photosPermission": "어디찌는 분실물 사진을 등록하기 위해 사진 라이브러리를 사용합니다.",
+          "cameraPermission": "어디찌는 분실물 사진을 촬영하기 위해 카메라를 사용합니다."
         }
       ]
     ]
