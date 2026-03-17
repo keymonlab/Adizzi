@@ -17,6 +17,7 @@ import { useNeighborhoodByLocation, useNeighborhoods } from '@/hooks/useNeighbor
 import { Button } from '@/components/ui/Button';
 import { updateLocationVerification } from '@/services/users.service';
 import type { Neighborhood } from '@/services/neighborhoods.service';
+import { Ionicons } from '@expo/vector-icons';
 import { Colors } from '@/constants/colors';
 
 // ─── Sub-screens ──────────────────────────────────────────────────────────────
@@ -24,7 +25,7 @@ import { Colors } from '@/constants/colors';
 function LoadingView() {
   return (
     <View style={styles.centered}>
-      <Text style={styles.bigIcon}>📍</Text>
+      <Ionicons name="location-outline" size={56} color={Colors.primary} style={{ marginBottom: 8 }} />
       <ActivityIndicator size="large" color={Colors.primary} style={{ marginBottom: 16 }} />
       <Text style={styles.title}>위치를 확인하고 있어요...</Text>
       <Text style={styles.subtitle}>잠시만 기다려 주세요</Text>
@@ -46,7 +47,7 @@ function FoundView({ neighborhood, onConfirm, onRetry, confirming, accuracy }: F
 
   return (
     <View style={styles.centered}>
-      <Text style={styles.bigIcon}>📌</Text>
+      <Ionicons name="location" size={56} color={Colors.primary} style={{ marginBottom: 8 }} />
       <Text style={styles.neighborhoodName}>{neighborhood.name}</Text>
       {neighborhood.district ? (
         <Text style={styles.neighborhoodDetail}>

@@ -3,7 +3,7 @@ import { Alert, Pressable, SafeAreaView, StyleSheet, Text, View } from 'react-na
 import { router } from 'expo-router';
 import { SocialLoginButton } from '@/components/auth/SocialLoginButton';
 import { Colors } from '@/constants/colors';
-import { BorderRadius, FontSize, Spacing } from '@/constants/layout';
+import { BorderRadius, FontSize, Shadow, Spacing } from '@/constants/layout';
 import { useAuth } from '@/hooks/useAuth';
 import { OAuthProvider } from '@/services/auth.service';
 
@@ -94,7 +94,7 @@ export default function LoginScreen() {
 const styles = StyleSheet.create({
   safeArea: {
     flex: 1,
-    backgroundColor: Colors.white,
+    backgroundColor: Colors.background,
   },
   container: {
     flex: 1,
@@ -110,28 +110,29 @@ const styles = StyleSheet.create({
   },
   logoContainer: {
     backgroundColor: Colors.primary,
-    paddingHorizontal: Spacing.xl,
-    paddingVertical: Spacing.md,
+    paddingHorizontal: Spacing.xl + 8,
+    paddingVertical: Spacing.lg,
     borderRadius: BorderRadius.xl,
-    marginBottom: Spacing.sm,
+    marginBottom: Spacing.md,
+    ...Shadow.sm,
   },
   logoText: {
     color: Colors.white,
-    fontSize: 36,
+    fontSize: 40,
     fontWeight: '800',
     letterSpacing: -1,
   },
   tagline: {
     color: Colors.text,
     fontSize: FontSize.xxl,
-    fontWeight: '700',
+    fontWeight: '800',
     textAlign: 'center',
   },
   description: {
-    color: Colors.textMuted,
+    color: Colors.textSecondary,
     fontSize: FontSize.md,
     textAlign: 'center',
-    lineHeight: 22,
+    lineHeight: 24,
   },
   buttonSection: {
     gap: Spacing.md,
@@ -144,9 +145,9 @@ const styles = StyleSheet.create({
   },
   devButton: {
     backgroundColor: Colors.surfaceLight,
-    paddingVertical: Spacing.sm,
+    paddingVertical: Spacing.sm + 2,
     paddingHorizontal: Spacing.md,
-    borderRadius: BorderRadius.md,
+    borderRadius: BorderRadius.lg,
     alignItems: 'center' as const,
   },
   devButtonDisabled: {

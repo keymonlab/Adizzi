@@ -18,6 +18,8 @@ import { PostStatusBadge } from '@/components/feed/PostStatusBadge';
 import { useClaimsForPost, useApproveClaim, useRejectClaim } from '@/hooks/useClaims';
 import { usePost } from '@/hooks/usePost';
 import { formatTimeAgo } from '@/utils/format';
+import { Ionicons } from '@expo/vector-icons';
+import { getCategoryIcon } from '@/constants/categories';
 import { Colors } from '@/constants/colors';
 
 export default function ClaimsManagementScreen() {
@@ -87,7 +89,7 @@ export default function ClaimsManagementScreen() {
               <Image source={{ uri: post.image_urls[0] }} style={styles.postThumbnail} />
             ) : (
               <View style={styles.postThumbnailPlaceholder}>
-                <Text style={styles.postThumbnailIcon}>🐾</Text>
+                <Ionicons name={getCategoryIcon(post.category) as any} size={32} color={Colors.primary} />
               </View>
             )}
             <View style={styles.postInfo}>
@@ -108,7 +110,7 @@ export default function ClaimsManagementScreen() {
         {!claims || claims.length === 0 ? (
           <View style={styles.emptyWrapper}>
             <EmptyState
-              icon="📭"
+              icon="mail-open-outline"
               title="아직 소유 요청이 없어요"
               message="아직 아무도 이 게시물에 소유 요청을 보내지 않았어요."
             />

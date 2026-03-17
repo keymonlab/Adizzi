@@ -1,54 +1,54 @@
 export const Colors = {
-  // Backgrounds
-  background: '#F5F5F5',
+  // Backgrounds (warm cream tones from Figma)
+  background: '#FFF8F0',
   surface: '#FFFFFF',
-  surfaceLight: '#F0F0F0',
+  surfaceLight: '#FFF0E6',
 
-  // Primary palette (warm teal -- community/trust feel)
-  primary: '#2E7D6F',
-  primaryLight: '#E8F5E9',
-  primaryDark: '#1B5E4F',
+  // Primary palette (warm orange -- from YUMQUICK design system)
+  primary: '#FF6B35',
+  primaryLight: '#FFF0E8',
+  primaryDark: '#E55A2B',
 
-  // Secondary palette (coral accent)
-  secondary: '#FF6B6B',
-  secondaryLight: '#FFE8E8',
+  // Secondary palette (deep coral accent)
+  secondary: '#E23744',
+  secondaryLight: '#FFE8EA',
 
   // Semantic
-  warning: '#F9A825',
-  warningLight: '#FFF8E1',
-  success: '#27AE60',
-  successLight: '#E8F5E9',
-  danger: '#D32F2F',
-  dangerLight: '#FFEBEE',
+  warning: '#FFAD0D',
+  warningLight: '#FFF6DE',
+  success: '#34C759',
+  successLight: '#EAFFF0',
+  danger: '#E23744',
+  dangerLight: '#FFE8EA',
 
   // Text
-  text: '#1A1A2E',
-  textSecondary: '#6B7280',
-  textMuted: '#6B7280',
+  text: '#1E1E2D',
+  textSecondary: '#8E8EA9',
+  textMuted: '#B0B0C3',
   textOnPrimary: '#FFFFFF',
   textOnDark: '#FFFFFF',
 
   // Borders & Dividers
-  border: '#E5E7EB',
-  borderFocused: '#2E7D6F',
+  border: '#F0EFF5',
+  borderFocused: '#FF6B35',
 
   // Utility
   white: '#FFFFFF',
   black: '#000000',
-  overlay: 'rgba(0, 0, 0, 0.5)',
+  overlay: 'rgba(0, 0, 0, 0.4)',
 
   // Notification type colors
   notification: {
-    newPost: '#2E7D6F',
-    mention: '#3B82F6',
-    claim: '#F9A825',
-    comment: '#6B7280',
-    resolved: '#27AE60',
+    newPost: '#FF6B35',
+    mention: '#5B7FFF',
+    claim: '#FFAD0D',
+    comment: '#8E8EA9',
+    resolved: '#34C759',
   },
 
   // Post status
   status: {
-    active: '#2E7D6F',
-    resolved: '#27AE60',
+    active: '#FF6B35',
+    resolved: '#34C759',
   },
 } as const;

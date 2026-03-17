@@ -252,8 +252,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     paddingHorizontal: Spacing.md,
     paddingVertical: Spacing.md,
-    borderBottomWidth: 1,
-    borderBottomColor: Colors.border,
     backgroundColor: Colors.background,
   },
   headerTitle: {
@@ -318,16 +316,14 @@ const styles = StyleSheet.create({
   },
   typeButton: {
     flex: 1,
-    paddingVertical: Spacing.sm,
-    borderRadius: BorderRadius.md,
+    paddingVertical: Spacing.sm + 2,
+    borderRadius: BorderRadius.full,
     backgroundColor: Colors.surface,
     alignItems: 'center',
-    borderWidth: 1,
-    borderColor: Colors.border,
+    borderWidth: 0,
   },
   typeButtonActive: {
     backgroundColor: Colors.primary,
-    borderColor: Colors.primary,
   },
   typeButtonText: {
     fontSize: FontSize.md,

@@ -24,6 +24,7 @@ import { ClaimButton } from '@/components/post/ClaimButton';
 import { CommentList } from '@/components/comments/CommentList';
 import { CommentInput } from '@/components/comments/CommentInput';
 import { formatTimeAgo } from '@/utils/format';
+import { Ionicons } from '@expo/vector-icons';
 import { getCategoryIcon, getCategoryLabel } from '@/constants/categories';
 import { createReport, type ReportReason, type ReportTargetType } from '@/services/reports.service';
 import { softDeletePost } from '@/services/posts.service';
@@ -258,11 +259,15 @@ export default function PostDetailScreen() {
 
           {/* Meta row */}
           <View style={styles.metaRow}>
-            <Text style={styles.metaItem}>
-              {getCategoryIcon(post.category)} {getCategoryLabel(post.category)}
-            </Text>
+            <View style={styles.metaItemRow}>
+              <Ionicons name={getCategoryIcon(post.category) as any} size={13} color={Colors.textSecondary} />
+              <Text style={styles.metaItem}>{getCategoryLabel(post.category)}</Text>
+            </View>
             {post.location_name ? (
-              <Text style={styles.metaItem}>📍 {post.location_name}</Text>
+              <View style={styles.metaItemRow}>
+                <Ionicons name="location-outline" size={13} color={Colors.textSecondary} />
+                <Text style={styles.metaItem}>{post.location_name}</Text>
+              </View>
             ) : null}
             <Text style={styles.metaItem}>{formatTimeAgo(post.created_at)}</Text>
           </View>
@@ -360,8 +365,6 @@ const styles = StyleSheet.create({
     paddingHorizontal: Spacing.md,
     paddingVertical: Spacing.sm + 2,
     backgroundColor: Colors.background,
-    borderBottomWidth: 1,
-    borderBottomColor: Colors.border,
   },
   headerBack: {
     width: 36,
@@ -438,6 +441,11 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     flexWrap: 'wrap',
     gap: Spacing.sm,
+  },
+  metaItemRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 4,
   },
   metaItem: {
     fontSize: FontSize.sm,

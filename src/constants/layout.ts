@@ -8,45 +8,45 @@ export const Spacing = {
 } as const;
 
 export const FontSize = {
-  xs: 10,
-  sm: 12,
-  md: 14,
-  lg: 16,
-  xl: 18,
-  xxl: 24,
-  title: 28,
+  xs: 11,
+  sm: 13,
+  md: 15,
+  lg: 17,
+  xl: 20,
+  xxl: 26,
+  title: 32,
 } as const;
 
 export const BorderRadius = {
-  sm: 6,
-  md: 10,
-  lg: 14,
-  xl: 20,
+  sm: 8,
+  md: 12,
+  lg: 16,
+  xl: 24,
   full: 9999,
 } as const;
 
-export const ScreenPadding = 16;
+export const ScreenPadding = 20;
 
 export const Shadow = {
   sm: {
-    shadowColor: '#000000',
-    shadowOffset: { width: 0, height: 1 },
+    shadowColor: '#FF6B35',
+    shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.06,
-    shadowRadius: 3,
+    shadowRadius: 4,
     elevation: 1,
   },
   md: {
-    shadowColor: '#000000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.08,
-    shadowRadius: 8,
+    shadowColor: '#1E1E2D',
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.06,
+    shadowRadius: 12,
     elevation: 3,
   },
   lg: {
-    shadowColor: '#000000',
-    shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 0.10,
-    shadowRadius: 16,
+    shadowColor: '#1E1E2D',
+    shadowOffset: { width: 0, height: 8 },
+    shadowOpacity: 0.08,
+    shadowRadius: 24,
     elevation: 6,
   },
 } as const;

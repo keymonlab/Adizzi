@@ -1,5 +1,6 @@
 import React from 'react';
 import { ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { Ionicons } from '@expo/vector-icons';
 import { Colors } from '@/constants/colors';
 import { BorderRadius, FontSize, Spacing } from '@/constants/layout';
 import { CATEGORIES } from '@/constants/categories';
@@ -16,7 +17,7 @@ interface TabItem {
   icon: string;
 }
 
-const ALL_TAB: TabItem = { value: undefined, label: '전체', icon: '🗂️' };
+const ALL_TAB: TabItem = { value: undefined, label: '전체', icon: 'apps-outline' };
 
 const TABS: TabItem[] = [
   ALL_TAB,
@@ -40,7 +41,11 @@ export function CategoryFilter({ selectedCategory, onSelect }: CategoryFilterPro
               onPress={() => onSelect(tab.value)}
               activeOpacity={0.7}
             >
-              <Text style={styles.icon}>{tab.icon}</Text>
+              <Ionicons
+                name={tab.icon as any}
+                size={15}
+                color={isActive ? Colors.white : Colors.textSecondary}
+              />
               <Text style={[styles.label, isActive && styles.labelActive]}>{tab.label}</Text>
             </TouchableOpacity>
           );
@@ -53,28 +58,23 @@ export function CategoryFilter({ selectedCategory, onSelect }: CategoryFilterPro
 const styles = StyleSheet.create({
   wrapper: {
     backgroundColor: Colors.background,
-    borderBottomWidth: 1,
-    borderBottomColor: Colors.border,
   },
   container: {
-    paddingHorizontal: Spacing.md,
-    paddingVertical: Spacing.sm,
+    paddingHorizontal: Spacing.md + 4,
+    paddingVertical: Spacing.sm + 4,
     gap: Spacing.sm,
   },
   tab: {
     flexDirection: 'row',
     alignItems: 'center',
     paddingHorizontal: Spacing.md,
-    paddingVertical: Spacing.xs + 2,
+    paddingVertical: Spacing.sm,
     borderRadius: BorderRadius.full,
     backgroundColor: Colors.surface,
     gap: Spacing.xs,
   },
   tabActive: {
     backgroundColor: Colors.primary,
-  },
-  icon: {
-    fontSize: FontSize.md,
   },
   label: {
     fontSize: FontSize.sm,

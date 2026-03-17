@@ -7,6 +7,7 @@ import {
   Platform,
   StyleSheet,
 } from 'react-native';
+import { Ionicons } from '@expo/vector-icons';
 import { Input } from '@/components/ui/Input';
 import { useLocation } from '@/hooks/useLocation';
 import { Colors } from '@/constants/colors';
@@ -176,7 +177,10 @@ export function LocationPicker({ value, onChange }: LocationPickerProps): React.
             </View>
           )}
           <View style={pickerStyles.coordsBox}>
-            <Text style={pickerStyles.coordsLabel}>📍 GPS</Text>
+            <View style={pickerStyles.coordsLabelRow}>
+              <Ionicons name="location-outline" size={13} color={Colors.textSecondary} />
+              <Text style={pickerStyles.coordsLabel}>GPS</Text>
+            </View>
             <Text style={pickerStyles.coordsText}>
               {value.lat.toFixed(5)}, {value.lng.toFixed(5)}
             </Text>
@@ -192,7 +196,8 @@ export function LocationPicker({ value, onChange }: LocationPickerProps): React.
 
       {!loading && !value && !error && (
         <TouchableOpacity style={pickerStyles.retryButton} onPress={handleRetry}>
-          <Text style={pickerStyles.retryText}>📍 위치 가져오기</Text>
+          <Ionicons name="location-outline" size={16} color={Colors.primary} />
+          <Text style={pickerStyles.retryText}>위치 가져오기</Text>
         </TouchableOpacity>
       )}
     </View>
@@ -238,6 +243,11 @@ const pickerStyles = StyleSheet.create({
     borderRadius: BorderRadius.md,
     padding: Spacing.sm,
   },
+  coordsLabelRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 4,
+  },
   coordsLabel: {
     color: Colors.primary,
     fontSize: FontSize.sm,
@@ -261,6 +271,9 @@ const pickerStyles = StyleSheet.create({
     fontSize: FontSize.sm,
   },
   retryButton: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 6,
     backgroundColor: Colors.surfaceLight,
     borderRadius: BorderRadius.sm,
     paddingVertical: Spacing.xs,

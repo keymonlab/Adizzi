@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { SafeAreaView, StyleSheet, Text, View } from 'react-native';
 import { router } from 'expo-router';
 import { Colors } from '@/constants/colors';
-import { FontSize, Spacing } from '@/constants/layout';
+import { FontSize, ScreenPadding, Spacing } from '@/constants/layout';
 import { useAuth } from '@/hooks/useAuth';
 import { usePosts } from '@/hooks/usePosts';
 import { CategoryFilter } from '@/components/feed/CategoryFilter';
@@ -36,7 +36,17 @@ export default function HomeScreen() {
     <SafeAreaView style={styles.container}>
       {/* Header */}
       <View style={styles.header}>
-        <Text style={styles.headerTitle}>우리 동네</Text>
+        <View style={styles.headerRow}>
+          <View>
+            <Text style={styles.headerGreeting}>
+              안녕하세요
+            </Text>
+            <Text style={styles.headerTitle}>우리 동네</Text>
+          </View>
+          <View style={styles.headerBadge}>
+            <Text style={styles.headerBadgeText}>어디찌</Text>
+          </View>
+        </View>
         {profile?.neighborhood_id ? (
           <Text style={styles.headerSub}>내 동네 분실물</Text>
         ) : null}
@@ -70,18 +80,39 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.background,
   },
   header: {
-    paddingHorizontal: Spacing.md,
+    paddingHorizontal: ScreenPadding,
     paddingTop: Spacing.md,
     paddingBottom: Spacing.sm,
   },
+  headerRow: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'flex-start',
+  },
+  headerGreeting: {
+    fontSize: FontSize.md,
+    color: Colors.textSecondary,
+    marginBottom: 2,
+  },
   headerTitle: {
-    fontSize: FontSize.xxl,
+    fontSize: FontSize.title,
     fontWeight: '800',
     color: Colors.text,
+  },
+  headerBadge: {
+    backgroundColor: Colors.primary,
+    paddingHorizontal: Spacing.md,
+    paddingVertical: Spacing.xs + 2,
+    borderRadius: Spacing.sm + 4,
+  },
+  headerBadgeText: {
+    color: Colors.white,
+    fontSize: FontSize.sm,
+    fontWeight: '800',
   },
   headerSub: {
     fontSize: FontSize.sm,
     color: Colors.textSecondary,
-    marginTop: 2,
+    marginTop: 4,
   },
 });

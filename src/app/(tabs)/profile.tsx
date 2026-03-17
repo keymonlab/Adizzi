@@ -8,6 +8,7 @@ import {
   View,
 } from 'react-native';
 import { router } from 'expo-router';
+import { Ionicons } from '@expo/vector-icons';
 import { useAuth } from '@/hooks/useAuth';
 import { useMyPosts } from '@/hooks/useMyPosts';
 import { Avatar } from '@/components/ui/Avatar';
@@ -16,19 +17,25 @@ import { EmptyState } from '@/components/ui/EmptyState';
 import { LoadingSpinner } from '@/components/ui/LoadingSpinner';
 import { PostCard } from '@/components/feed/PostCard';
 import { Colors } from '@/constants/colors';
-import { BorderRadius, FontSize, ScreenPadding, Spacing } from '@/constants/layout';
+import { BorderRadius, FontSize, ScreenPadding, Shadow, Spacing } from '@/constants/layout';
 import type { PostWithAuthor } from '@/services/posts.service';
 
+type IoniconName = React.ComponentProps<typeof Ionicons>['name'];
+
 interface SettingsItemProps {
+  icon: IoniconName;
   label: string;
   onPress: () => void;
 }
 
-function SettingsItem({ label, onPress }: SettingsItemProps) {
+function SettingsItem({ icon, label, onPress }: SettingsItemProps) {
   return (
     <TouchableOpacity style={styles.settingsItem} onPress={onPress} activeOpacity={0.7}>
+      <View style={styles.settingsIconContainer}>
+        <Ionicons name={icon} size={18} color={Colors.primary} />
+      </View>
       <Text style={styles.settingsLabel}>{label}</Text>
-      <Text style={styles.chevron}>›</Text>
+      <Ionicons name="chevron-forward" size={16} color={Colors.textMuted} />
     </TouchableOpacity>
   );
 }
@@ -62,47 +69,51 @@ export default function ProfileScreen() {
     <>
       {/* Profile section */}
       <View style={styles.profileCard}>
-        <Avatar
-          uri={profile?.avatar_url}
-          name={profile?.display_name}
-          size="lg"
-        />
+        <View style={styles.avatarRing}>
+          <Avatar
+            uri={profile?.avatar_url}
+            name={profile?.display_name}
+            size="lg"
+          />
+        </View>
         <Text style={styles.displayName}>{profile?.display_name}</Text>
         <Text style={styles.handle}>@{profile?.handle}</Text>
         {profile?.neighborhood_id ? (
-          <Text style={styles.neighborhood}>📍 내 동네</Text>
+          <View style={styles.locationChip}>
+            <Text style={styles.locationText}>내 동네</Text>
+          </View>
         ) : null}
         <View style={styles.statsRow}>
-          <Text style={styles.statText}>게시물 {postCount}개</Text>
+          <View style={styles.statItem}>
+            <Text style={styles.statNumber}>{postCount}</Text>
+            <Text style={styles.statLabel}>게시물</Text>
+          </View>
         </View>
       </View>
-
-      <View style={styles.divider} />
 
       {/* Settings section */}
       <View style={styles.settingsSection}>
         <SettingsItem
+          icon="create-outline"
           label="프로필 수정"
           onPress={() => router.push('/settings/edit-profile')}
         />
-        <View style={styles.itemDivider} />
         <SettingsItem
+          icon="location-outline"
           label="동네 설정"
           onPress={() => router.push('/settings/neighborhood')}
         />
-        <View style={styles.itemDivider} />
         <SettingsItem
+          icon="notifications-outline"
           label="분실물 알림"
           onPress={() => router.push('/settings/lost-alerts')}
         />
-        <View style={styles.itemDivider} />
         <SettingsItem
+          icon="people-outline"
           label="연락처 동기화"
           onPress={() => router.push('/settings/contacts')}
         />
       </View>
-
-      <View style={styles.divider} />
 
       {/* My posts section header */}
       <View style={styles.sectionHeader}>
@@ -116,7 +127,7 @@ export default function ProfileScreen() {
   const renderEmpty = () =>
     !isLoading ? (
       <EmptyState
-        icon="📭"
+        icon="mail-open-outline"
         title="아직 작성한 게시물이 없어요"
         message="첫 번째 게시물을 작성해 보세요"
       />
@@ -154,7 +165,7 @@ export default function ProfileScreen() {
         <Button
           title="로그아웃"
           onPress={signOut}
-          variant="danger"
+          variant="outline"
           size="lg"
           style={styles.logoutButton}
         />
@@ -171,12 +182,10 @@ const styles = StyleSheet.create({
   header: {
     paddingHorizontal: ScreenPadding,
     paddingVertical: Spacing.md,
-    borderBottomWidth: 1,
-    borderBottomColor: Colors.border,
   },
   headerTitle: {
     fontSize: FontSize.xl,
-    fontWeight: '700',
+    fontWeight: '800',
     color: Colors.text,
   },
   listContent: {
@@ -184,13 +193,24 @@ const styles = StyleSheet.create({
   },
   profileCard: {
     alignItems: 'center',
-    paddingVertical: Spacing.xl,
+    paddingVertical: Spacing.lg,
     paddingHorizontal: ScreenPadding,
+    marginHorizontal: ScreenPadding,
+    marginBottom: Spacing.md,
+    backgroundColor: Colors.surface,
+    borderRadius: BorderRadius.xl,
+    ...Shadow.md,
     gap: Spacing.xs,
+  },
+  avatarRing: {
+    padding: 3,
+    borderRadius: 40,
+    borderWidth: 2,
+    borderColor: Colors.primary,
   },
   displayName: {
     fontSize: FontSize.xxl,
-    fontWeight: '700',
+    fontWeight: '800',
     color: Colors.text,
     marginTop: Spacing.sm,
   },
@@ -198,53 +218,63 @@ const styles = StyleSheet.create({
     fontSize: FontSize.md,
     color: Colors.textSecondary,
   },
-  neighborhood: {
-    fontSize: FontSize.md,
-    color: Colors.textSecondary,
+  locationChip: {
+    backgroundColor: Colors.primaryLight,
+    paddingHorizontal: Spacing.md,
+    paddingVertical: Spacing.xs,
+    borderRadius: BorderRadius.full,
     marginTop: Spacing.xs,
+  },
+  locationText: {
+    fontSize: FontSize.sm,
+    color: Colors.primary,
+    fontWeight: '600',
   },
   statsRow: {
     flexDirection: 'row',
     marginTop: Spacing.sm,
     gap: Spacing.lg,
   },
-  statText: {
-    fontSize: FontSize.md,
-    color: Colors.text,
-    fontWeight: '600',
+  statItem: {
+    alignItems: 'center',
   },
-  divider: {
-    height: 1,
-    backgroundColor: Colors.border,
-    marginHorizontal: ScreenPadding,
+  statNumber: {
+    fontSize: FontSize.xl,
+    fontWeight: '800',
+    color: Colors.text,
+  },
+  statLabel: {
+    fontSize: FontSize.sm,
+    color: Colors.textSecondary,
   },
   settingsSection: {
     backgroundColor: Colors.surface,
     marginHorizontal: ScreenPadding,
-    marginVertical: Spacing.md,
-    borderRadius: BorderRadius.lg,
+    marginBottom: Spacing.md,
+    borderRadius: BorderRadius.xl,
+    ...Shadow.md,
     overflow: 'hidden',
   },
   settingsItem: {
     flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'space-between',
     paddingHorizontal: Spacing.md,
     paddingVertical: Spacing.md,
+    gap: Spacing.md,
+  },
+  settingsIconContainer: {
+    width: 36,
+    height: 36,
+    borderRadius: BorderRadius.md,
+    backgroundColor: Colors.surfaceLight,
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   settingsLabel: {
+    flex: 1,
     fontSize: FontSize.md,
     color: Colors.text,
-  },
-  chevron: {
-    fontSize: FontSize.xl,
-    color: Colors.textMuted,
-    lineHeight: FontSize.xl * 1.2,
-  },
-  itemDivider: {
-    height: 1,
-    backgroundColor: Colors.border,
-    marginLeft: Spacing.md,
+    fontWeight: '500',
   },
   sectionHeader: {
     paddingHorizontal: ScreenPadding,
@@ -267,8 +297,6 @@ const styles = StyleSheet.create({
   logoutContainer: {
     paddingHorizontal: ScreenPadding,
     paddingVertical: Spacing.md,
-    borderTopWidth: 1,
-    borderTopColor: Colors.border,
     backgroundColor: Colors.background,
   },
   logoutButton: {

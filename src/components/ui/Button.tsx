@@ -46,7 +46,7 @@ const variantStyles: Record<ButtonVariant, { container: ViewStyle; text: object 
   outline: {
     container: {
       backgroundColor: 'transparent',
-      borderWidth: 1,
+      borderWidth: 1.5,
       borderColor: Colors.border,
     },
     text: {
@@ -68,8 +68,8 @@ const variantStyles: Record<ButtonVariant, { container: ViewStyle; text: object 
 const sizeStyles: Record<ButtonSize, { container: ViewStyle; text: object }> = {
   sm: {
     container: {
-      paddingVertical: Spacing.xs,
-      paddingHorizontal: Spacing.sm,
+      paddingVertical: Spacing.sm,
+      paddingHorizontal: Spacing.md,
       borderRadius: BorderRadius.lg,
     },
     text: {
@@ -78,8 +78,8 @@ const sizeStyles: Record<ButtonSize, { container: ViewStyle; text: object }> = {
   },
   md: {
     container: {
-      paddingVertical: Spacing.sm + 2,
-      paddingHorizontal: Spacing.md,
+      paddingVertical: Spacing.sm + 4,
+      paddingHorizontal: Spacing.lg,
       borderRadius: BorderRadius.lg,
     },
     text: {
@@ -88,9 +88,9 @@ const sizeStyles: Record<ButtonSize, { container: ViewStyle; text: object }> = {
   },
   lg: {
     container: {
-      paddingVertical: Spacing.md - 2,
-      paddingHorizontal: Spacing.lg,
-      borderRadius: BorderRadius.lg,
+      paddingVertical: Spacing.md,
+      paddingHorizontal: Spacing.xl,
+      borderRadius: BorderRadius.xl,
     },
     text: {
       fontSize: FontSize.lg,
@@ -145,8 +145,8 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
   },
   text: {
-    fontWeight: '600',
-    letterSpacing: 0.3,
+    fontWeight: '700',
+    letterSpacing: 0.2,
   },
   disabled: {
     opacity: 0.45,

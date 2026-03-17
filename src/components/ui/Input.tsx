@@ -8,7 +8,7 @@ import {
   ViewStyle,
 } from 'react-native';
 import { Colors } from '../../constants/colors';
-import { BorderRadius, FontSize, Shadow, Spacing } from '../../constants/layout';
+import { BorderRadius, FontSize, Spacing } from '../../constants/layout';
 
 interface InputProps extends Omit<TextInputProps, 'style'> {
   label?: string;
@@ -65,30 +65,31 @@ const styles = StyleSheet.create({
   },
   label: {
     fontSize: FontSize.sm,
-    fontWeight: '500',
-    color: Colors.textSecondary,
+    fontWeight: '600',
+    color: Colors.text,
     marginBottom: 2,
   },
   input: {
-    backgroundColor: Colors.white,
-    borderRadius: BorderRadius.md,
-    borderWidth: 1,
-    borderColor: Colors.border,
+    backgroundColor: Colors.surfaceLight,
+    borderRadius: BorderRadius.lg,
+    borderWidth: 0,
     paddingHorizontal: Spacing.md,
-    paddingVertical: Spacing.sm + 2,
+    paddingVertical: Spacing.sm + 4,
     fontSize: FontSize.md,
     color: Colors.text,
-    ...Shadow.sm,
   },
   multiline: {
-    minHeight: 96,
+    minHeight: 100,
     textAlignVertical: 'top',
-    paddingTop: Spacing.sm + 2,
+    paddingTop: Spacing.sm + 4,
   },
   focused: {
+    borderWidth: 1.5,
     borderColor: Colors.primary,
+    backgroundColor: Colors.white,
   },
   errorBorder: {
+    borderWidth: 1.5,
     borderColor: Colors.danger,
   },
   errorText: {

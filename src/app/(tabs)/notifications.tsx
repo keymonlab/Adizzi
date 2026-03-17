@@ -114,7 +114,7 @@ export default function NotificationsScreen() {
         }
         ListEmptyComponent={
           <EmptyState
-            icon="🔔"
+            icon="notifications-outline"
             title="새로운 알림이 없어요"
             message="활동이 생기면 여기에 알림이 표시됩니다"
           />
@@ -134,15 +134,13 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-    paddingHorizontal: 16,
-    paddingVertical: 14,
-    borderBottomWidth: 1,
-    borderBottomColor: Colors.border,
-    backgroundColor: Colors.white,
+    paddingHorizontal: 20,
+    paddingVertical: 16,
+    backgroundColor: Colors.background,
   },
   headerTitle: {
-    fontSize: 20,
-    fontWeight: '700',
+    fontSize: 22,
+    fontWeight: '800',
     color: Colors.text,
   },
   markAllButton: {

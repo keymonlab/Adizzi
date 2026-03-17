@@ -12,9 +12,9 @@ interface AvatarProps {
 }
 
 const sizeMap: Record<AvatarSize, number> = {
-  sm: 32,
-  md: 40,
-  lg: 56,
+  sm: 36,
+  md: 44,
+  lg: 64,
 };
 
 const fontSizeMap: Record<AvatarSize, number> = {
@@ -53,7 +53,7 @@ export function Avatar({ uri, name, size = 'md' }: AvatarProps) {
 
 const styles = StyleSheet.create({
   image: {
-    backgroundColor: Colors.surface,
+    backgroundColor: Colors.surfaceLight,
   },
   fallback: {
     backgroundColor: Colors.primaryLight,
@@ -62,6 +62,6 @@ const styles = StyleSheet.create({
   },
   initial: {
     color: Colors.primary,
-    fontWeight: '600',
+    fontWeight: '700',
   },
 });

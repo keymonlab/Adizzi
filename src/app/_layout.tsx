@@ -10,7 +10,6 @@ import * as SplashScreen from 'expo-splash-screen';
 import { useEffect, useCallback } from 'react';
 import { Platform, View } from 'react-native';
 import { createSessionFromUrl } from '@/services/auth.service';
-import { useFonts, NotoSansKR_400Regular, NotoSansKR_500Medium, NotoSansKR_700Bold } from '@expo-google-fonts/noto-sans-kr';
 
 SplashScreen.preventAutoHideAsync();
 
@@ -25,26 +24,16 @@ const queryClient = new QueryClient({
 
 export default function RootLayout() {
   const url = Linking.useURL();
-  const [fontsLoaded, fontError] = useFonts({
-    NotoSansKR_400Regular,
-    NotoSansKR_500Medium,
-    NotoSansKR_700Bold,
-  });
 
   const onLayoutRootView = useCallback(async () => {
-    if (fontsLoaded) {
-      await SplashScreen.hideAsync();
-    }
-  }, [fontsLoaded]);
+    await SplashScreen.hideAsync();
+  }, []);
 
   useEffect(() => {
     if (url && Platform.OS !== 'web') {
       createSessionFromUrl(url).catch(console.error);
     }
   }, [url]);
-
-  // On web, don't block rendering on font loading — CSS @font-face handles fallback natively
-  if (!fontsLoaded && !fontError && Platform.OS !== 'web') return null;
 
   return (
     <SafeAreaProvider>

@@ -215,7 +215,7 @@ export default function LostAlertsScreen() {
         ItemSeparatorComponent={() => <View style={styles.separator} />}
         ListEmptyComponent={
           <EmptyState
-            icon="🔔"
+            icon="notifications-outline"
             title="알림이 없어요"
             message={'분실물 키워드를 등록하면\n새 게시물이 올라올 때 알림을 받아요.'}
           />

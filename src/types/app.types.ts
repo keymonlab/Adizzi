@@ -20,4 +20,5 @@ export type CategoryInfo = {
   value: Category;
   label: string;
   icon: string;
+  iconLib?: 'Ionicons' | 'MaterialCommunityIcons';
 };
