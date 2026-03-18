@@ -59,6 +59,8 @@ export function SocialLoginButton({
       onPress={onPress}
       disabled={isDisabled}
       activeOpacity={0.8}
+      testID={`login-${provider}`}
+      accessibilityLabel={config.label}
       style={[
         styles.button,
         {

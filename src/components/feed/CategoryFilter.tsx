@@ -40,6 +40,8 @@ export function CategoryFilter({ selectedCategory, onSelect }: CategoryFilterPro
               style={[styles.tab, isActive && styles.tabActive]}
               onPress={() => onSelect(tab.value)}
               activeOpacity={0.7}
+              testID={`category-${tab.value ?? 'all'}`}
+              accessibilityLabel={tab.label}
             >
               <Ionicons
                 name={tab.icon as any}

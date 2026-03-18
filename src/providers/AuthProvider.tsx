@@ -142,6 +142,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     setSession(null);
     setUser(null);
     setProfile(null);
+    router.replace('/(auth)/login');
   }, []);
 
   const isAuthenticated = session !== null;

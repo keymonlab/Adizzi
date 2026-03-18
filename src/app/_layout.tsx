@@ -5,10 +5,11 @@ import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { AuthProvider } from '@/providers/AuthProvider';
 import { NotificationProvider } from '@/providers/NotificationProvider';
 import { RealtimeProvider } from '@/providers/RealtimeProvider';
+import { AnimatedSplash } from '@/components/ui/AnimatedSplash';
 import * as Linking from 'expo-linking';
 import * as SplashScreen from 'expo-splash-screen';
-import { useEffect, useCallback } from 'react';
-import { Platform, View } from 'react-native';
+import { useEffect, useCallback, useState } from 'react';
+import { View } from 'react-native';
 import { createSessionFromUrl } from '@/services/auth.service';
 
 SplashScreen.preventAutoHideAsync();
@@ -24,13 +25,13 @@ const queryClient = new QueryClient({
 
 export default function RootLayout() {
   const url = Linking.useURL();
-
+  const [showSplash, setShowSplash] = useState(true);
   const onLayoutRootView = useCallback(async () => {
     await SplashScreen.hideAsync();
   }, []);
 
   useEffect(() => {
-    if (url && Platform.OS !== 'web') {
+    if (url) {
       createSessionFromUrl(url).catch(console.error);
     }
   }, [url]);
@@ -44,6 +45,9 @@ export default function RootLayout() {
               <RealtimeProvider>
                 <StatusBar style="dark" />
                 <Slot />
+                {showSplash && (
+                  <AnimatedSplash onFinish={() => setShowSplash(false)} />
+                )}
               </RealtimeProvider>
             </NotificationProvider>
           </AuthProvider>

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Alert, Pressable, SafeAreaView, StyleSheet, Text, View } from 'react-native';
+import { Alert, Image, Pressable, SafeAreaView, StyleSheet, Text, View } from 'react-native';
 import { router } from 'expo-router';
 import { SocialLoginButton } from '@/components/auth/SocialLoginButton';
 import { Colors } from '@/constants/colors';
@@ -30,9 +30,11 @@ export default function LoginScreen() {
       <View style={styles.container}>
         {/* Logo / Hero */}
         <View style={styles.heroSection}>
-          <View style={styles.logoContainer}>
-            <Text style={styles.logoText}>어디찌</Text>
-          </View>
+          <Image
+            source={require('../../../assets/typo_final_5-Photoroom.png')}
+            style={styles.logoImage}
+            resizeMode="contain"
+          />
           <Text style={styles.tagline}>우리 동네 분실물 찾기</Text>
           <Text style={styles.description}>
             소중한 물건을 잃어버렸거나{'\n'}찾으셨나요? 이웃과 함께 찾아요.
@@ -58,6 +60,8 @@ export default function LoginScreen() {
         {/* Dev Login */}
         {__DEV__ && (
           <Pressable
+            testID="dev-login"
+            accessibilityLabel="Dev Login"
             style={[styles.devButton, devLoading && styles.devButtonDisabled]}
             onPress={async () => {
               if (devLoading) return;
@@ -108,19 +112,10 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     gap: Spacing.md,
   },
-  logoContainer: {
-    backgroundColor: Colors.primary,
-    paddingHorizontal: Spacing.xl + 8,
-    paddingVertical: Spacing.lg,
-    borderRadius: BorderRadius.xl,
+  logoImage: {
+    width: 286,
+    height: 130,
     marginBottom: Spacing.md,
-    ...Shadow.sm,
-  },
-  logoText: {
-    color: Colors.white,
-    fontSize: 40,
-    fontWeight: '800',
-    letterSpacing: -1,
   },
   tagline: {
     color: Colors.text,

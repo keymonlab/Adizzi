@@ -94,7 +94,7 @@ export function PostList({
       ItemSeparatorComponent={() => <View style={styles.separator} />}
       ListEmptyComponent={
         <EmptyState
-          icon="🔍"
+          icon="search-outline"
           title="아직 게시물이 없어요"
           message="우리 동네 첫 분실물을 등록해 보세요!"
         />

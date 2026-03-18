@@ -117,6 +117,7 @@ export function Button({
       onPress={onPress}
       disabled={isDisabled}
       activeOpacity={0.75}
+      accessibilityLabel={title}
       style={[
         styles.base,
         vStyle.container,

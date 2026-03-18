@@ -30,7 +30,7 @@ interface SettingsItemProps {
 
 function SettingsItem({ icon, label, onPress }: SettingsItemProps) {
   return (
-    <TouchableOpacity style={styles.settingsItem} onPress={onPress} activeOpacity={0.7}>
+    <TouchableOpacity style={styles.settingsItem} onPress={onPress} activeOpacity={0.7} testID={`settings-${label}`} accessibilityLabel={label}>
       <View style={styles.settingsIconContainer}>
         <Ionicons name={icon} size={18} color={Colors.primary} />
       </View>
@@ -133,12 +133,24 @@ export default function ProfileScreen() {
       />
     ) : null;
 
-  const renderFooter = () =>
-    isFetchingNextPage ? (
-      <View style={styles.footerSpinner}>
-        <LoadingSpinner />
+  const renderFooter = () => (
+    <View>
+      {isFetchingNextPage ? (
+        <View style={styles.footerSpinner}>
+          <LoadingSpinner />
+        </View>
+      ) : null}
+      <View style={styles.logoutContainer}>
+        <Button
+          title="로그아웃"
+          onPress={signOut}
+          variant="outline"
+          size="lg"
+          style={styles.logoutButton}
+        />
       </View>
-    ) : null;
+    </View>
+  );
 
   return (
     <SafeAreaView style={styles.safeArea}>
@@ -161,16 +173,6 @@ export default function ProfileScreen() {
         ListFooterComponentStyle={styles.listFooter}
       />
 
-      {/* Logout button */}
-      <View style={styles.logoutContainer}>
-        <Button
-          title="로그아웃"
-          onPress={signOut}
-          variant="outline"
-          size="lg"
-          style={styles.logoutButton}
-        />
-      </View>
     </SafeAreaView>
   );
 }

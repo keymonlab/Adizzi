@@ -92,7 +92,7 @@ interface NotFoundViewProps {
 function NotFoundView({ onRetry, onManual }: NotFoundViewProps) {
   return (
     <View style={styles.centered}>
-      <Text style={styles.bigIcon}>🔍</Text>
+      <Ionicons name="location-outline" size={48} color={Colors.primary} style={styles.bigIcon} />
       <Text style={styles.title}>근처 동네를 찾을 수 없어요</Text>
       <Text style={styles.subtitle}>위치를 다시 확인하거나{'\n'}직접 동네를 선택해 주세요</Text>
       <View style={styles.buttonStack}>

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { SafeAreaView, StyleSheet, Text, View } from 'react-native';
+import { Image, SafeAreaView, StyleSheet, Text, View } from 'react-native';
 import { router } from 'expo-router';
 import { Colors } from '@/constants/colors';
 import { FontSize, ScreenPadding, Spacing } from '@/constants/layout';
@@ -43,9 +43,11 @@ export default function HomeScreen() {
             </Text>
             <Text style={styles.headerTitle}>우리 동네</Text>
           </View>
-          <View style={styles.headerBadge}>
-            <Text style={styles.headerBadgeText}>어디찌</Text>
-          </View>
+          <Image
+            source={require('../../../assets/typo_final_5-Photoroom.png')}
+            style={styles.headerLogo}
+            resizeMode="contain"
+          />
         </View>
         {profile?.neighborhood_id ? (
           <Text style={styles.headerSub}>내 동네 분실물</Text>
@@ -99,16 +101,9 @@ const styles = StyleSheet.create({
     fontWeight: '800',
     color: Colors.text,
   },
-  headerBadge: {
-    backgroundColor: Colors.primary,
-    paddingHorizontal: Spacing.md,
-    paddingVertical: Spacing.xs + 2,
-    borderRadius: Spacing.sm + 4,
-  },
-  headerBadgeText: {
-    color: Colors.white,
-    fontSize: FontSize.sm,
-    fontWeight: '800',
+  headerLogo: {
+    width: 104,
+    height: 47,
   },
   headerSub: {
     fontSize: FontSize.sm,

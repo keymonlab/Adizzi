@@ -75,5 +75,4 @@ backend = "postgres"
 [functions]
 # Edge Functions are located in supabase/functions/
 
-[project]
-project_id = "iqmnoebrlbanarxopziw"
+# project_id is now managed by supabase link, not config.toml

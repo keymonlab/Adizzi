@@ -2,6 +2,7 @@ import React from 'react';
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import { CATEGORIES } from '@/constants/categories';
 import type { Category } from '@/types/app.types';
+import { Ionicons } from '@expo/vector-icons';
 import { Colors } from '@/constants/colors';
 import { BorderRadius, FontSize, Spacing } from '@/constants/layout';
 
@@ -21,8 +22,10 @@ export function CategoryPicker({ selected, onSelect }: CategoryPickerProps): Rea
             style={[styles.card, isSelected && styles.cardSelected]}
             onPress={() => onSelect(cat.value)}
             activeOpacity={0.7}
+            testID={`pick-category-${cat.value}`}
+            accessibilityLabel={cat.label}
           >
-            <Text style={styles.icon}>{cat.icon}</Text>
+            <Ionicons name={cat.icon as any} size={22} color={isSelected ? Colors.primary : Colors.textSecondary} />
             <Text style={[styles.label, isSelected && styles.labelSelected]}>{cat.label}</Text>
           </TouchableOpacity>
         );

@@ -70,6 +70,7 @@ export default function TabsLayout() {
         name="index"
         options={{
           title: 'Home',
+
           tabBarIcon: ({ color, focused }) => <TabIcon name="Home" color={color} focused={focused} />,
         }}
       />
