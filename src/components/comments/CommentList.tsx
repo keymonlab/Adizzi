@@ -3,6 +3,7 @@ import {
   ActivityIndicator,
   Alert,
   FlatList,
+  Pressable,
   StyleSheet,
   Text,
   TouchableOpacity,
@@ -41,7 +42,7 @@ interface CommentRowProps {
 }
 
 function CommentRow({ comment, currentUserId, onDelete, isDeleting, onReport }: CommentRowProps) {
-  const isOwn = currentUserId === comment.author_id;
+  const isOwn = currentUserId != null && currentUserId === (comment.author?.id ?? comment.author_id);
 
   const handleLongPress = () => {
     if (isOwn) return;
@@ -52,8 +53,7 @@ function CommentRow({ comment, currentUserId, onDelete, isDeleting, onReport }: 
   };
 
   return (
-    <TouchableOpacity
-      activeOpacity={1}
+    <Pressable
       onLongPress={handleLongPress}
       delayLongPress={400}
     >
@@ -86,7 +86,7 @@ function CommentRow({ comment, currentUserId, onDelete, isDeleting, onReport }: 
           </TouchableOpacity>
         )}
       </View>
-    </TouchableOpacity>
+    </Pressable>
   );
 }
 

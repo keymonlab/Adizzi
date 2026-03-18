@@ -6,11 +6,11 @@ test.describe('Tab navigation', () => {
 
     await expect(page.getByText('우리 동네')).toBeVisible({ timeout: 15_000 });
 
-    await expect(page.getByText('Home')).toBeVisible({ timeout: 10_000 });
-    await expect(page.getByText('Map')).toBeVisible({ timeout: 10_000 });
-    await expect(page.getByText('Create')).toBeVisible({ timeout: 10_000 });
-    await expect(page.getByText('Notifications')).toBeVisible({ timeout: 10_000 });
-    await expect(page.getByText('Profile')).toBeVisible({ timeout: 10_000 });
+    await expect(page.getByRole('tab', { name: 'Home' })).toBeVisible({ timeout: 10_000 });
+    await expect(page.getByRole('tab', { name: 'Map' })).toBeVisible({ timeout: 10_000 });
+    await expect(page.getByRole('tab', { name: 'Create' })).toBeVisible({ timeout: 10_000 });
+    await expect(page.getByRole('tab', { name: 'Notifications' })).toBeVisible({ timeout: 10_000 });
+    await expect(page.getByRole('tab', { name: 'Profile' })).toBeVisible({ timeout: 10_000 });
   });
 
   test('navigates to Map tab', async ({ authenticatedPage: page }) => {
@@ -28,7 +28,7 @@ test.describe('Tab navigation', () => {
 
     await expect(page.getByText('Home')).toBeVisible({ timeout: 15_000 });
 
-    await page.getByText('Create').click();
+    await page.getByRole('tab', { name: 'Create' }).click();
     await page.waitForURL((url) => url.pathname.includes('create'), { timeout: 10_000 });
     await expect(page).toHaveURL(/create/);
   });

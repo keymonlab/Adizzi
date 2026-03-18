@@ -12,6 +12,7 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 import { useLocalSearchParams, router } from 'expo-router';
 import { Colors } from '@/constants/colors';
 import { BorderRadius, FontSize, Spacing } from '@/constants/layout';
@@ -201,22 +202,23 @@ export default function PostDetailScreen() {
   }
 
   return (
+    <SafeAreaView style={styles.screen} edges={['top']}>
     <KeyboardAvoidingView
-      style={styles.screen}
+      style={{ flex: 1 }}
       behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
       keyboardVerticalOffset={0}
     >
       {/* Header */}
       <View style={styles.header}>
-        <TouchableOpacity onPress={() => router.back()} style={styles.headerBack} hitSlop={8}>
-          <Text style={styles.headerBackIcon}>←</Text>
+        <TouchableOpacity onPress={() => router.back()} style={styles.headerBack} hitSlop={{ top: 12, bottom: 12, left: 12, right: 12 }} testID="back-button" accessibilityRole="button" accessibilityLabel="뒤로가기">
+          <Ionicons name="chevron-back" size={24} color={Colors.text} />
         </TouchableOpacity>
         <Text style={styles.headerTitle} numberOfLines={1}>
           {post.title || '게시물 상세'}
         </Text>
         {user ? (
           <TouchableOpacity style={styles.headerMenuBtn} onPress={handleMenuPress} hitSlop={8}>
-            <Text style={styles.headerMenuIcon}>⋯</Text>
+            <Ionicons name="ellipsis-horizontal" size={20} color={Colors.textSecondary} />
           </TouchableOpacity>
         ) : (
           <View style={styles.headerRight} />
@@ -329,6 +331,7 @@ export default function PostDetailScreen() {
         />
       )}
     </KeyboardAvoidingView>
+    </SafeAreaView>
   );
 }
 
@@ -367,12 +370,10 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.background,
   },
   headerBack: {
-    width: 36,
+    width: 44,
+    height: 44,
+    alignItems: 'center',
     justifyContent: 'center',
-  },
-  headerBackIcon: {
-    fontSize: FontSize.xl,
-    color: Colors.text,
   },
   headerTitle: {
     flex: 1,

@@ -90,6 +90,7 @@ export default function TabsLayout() {
             </View>
           ),
           tabBarLabel: () => null,
+          tabBarAccessibilityLabel: 'Create',
         }}
       />
       <Tabs.Screen

@@ -91,8 +91,8 @@ test.describe('Post detail screen', () => {
 
     await expect(page.getByText(MOCK_POSTS[0].title).first()).toBeVisible({ timeout: 15_000 });
 
-    // Header back button renders '←' — verify it exists and is clickable
-    const backButton = page.getByText('←');
+    // Header back button uses Ionicons chevron-back
+    const backButton = page.getByTestId('back-button');
     await expect(backButton).toBeVisible({ timeout: 10_000 });
     await backButton.click();
   });

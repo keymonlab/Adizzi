@@ -15,7 +15,8 @@ interface PostMarkerProps {
   onPress: () => void;
 }
 
-function parseWKT(wkt: string): { latitude: number; longitude: number } | null {
+function parseWKT(wkt: unknown): { latitude: number; longitude: number } | null {
+  if (typeof wkt !== 'string') return null;
   const match = wkt.match(/POINT\(([^ ]+) ([^ ]+)\)/);
   if (!match) return null;
   return { longitude: parseFloat(match[1]), latitude: parseFloat(match[2]) };

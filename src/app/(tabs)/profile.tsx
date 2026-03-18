@@ -155,6 +155,7 @@ export default function ProfileScreen() {
         ListFooterComponent={renderFooter}
         onEndReached={handleEndReached}
         onEndReachedThreshold={0.4}
+        style={styles.list}
         contentContainerStyle={styles.listContent}
         ItemSeparatorComponent={() => <View style={styles.postSeparator} />}
         ListFooterComponentStyle={styles.listFooter}
@@ -187,6 +188,9 @@ const styles = StyleSheet.create({
     fontSize: FontSize.xl,
     fontWeight: '800',
     color: Colors.text,
+  },
+  list: {
+    flex: 1,
   },
   listContent: {
     paddingBottom: Spacing.xl,
