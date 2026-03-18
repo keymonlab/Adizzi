@@ -11,10 +11,11 @@
     "test:ios": "maestro test .maestro/flows/ && maestro test .maestro/flows-auth/",
     "test:ios:core": "maestro test .maestro/flows/",
     "test:ios:auth": "maestro test .maestro/flows-auth/",
-    "test:ios:single": "maestro test"
+    "test:ios:single": "maestro test",
+    "clean:cache": "watchman watch-del-all 2>/dev/null; rm -rf /tmp/metro-* node_modules/.cache 2>/dev/null; echo 'Caches cleared'",
+    "clean:expo-go": "xcrun simctl terminate booted host.exp.Exponent 2>/dev/null; xcrun simctl spawn booted defaults delete host.exp.Exponent 2>/dev/null; echo 'Expo Go cache cleared'"
   },
   "dependencies": {
-    "@expo-google-fonts/noto-sans-kr": "^0.4.3",
     "@expo/vector-icons": "^15.0.2",
     "@react-native-async-storage/async-storage": "2.2.0",
     "@supabase/supabase-js": "^2.99.1",
