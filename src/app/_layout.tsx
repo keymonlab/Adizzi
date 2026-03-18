@@ -31,8 +31,8 @@ export default function RootLayout() {
   }, []);
 
   useEffect(() => {
-    if (url) {
-      createSessionFromUrl(url).catch(console.error);
+    if (url && (url.includes('access_token') || url.includes('refresh_token'))) {
+      createSessionFromUrl(url).catch(() => {});
     }
   }, [url]);
 
