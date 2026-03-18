@@ -217,7 +217,7 @@ export default function PostDetailScreen() {
           {post.title || '게시물 상세'}
         </Text>
         {user ? (
-          <TouchableOpacity style={styles.headerMenuBtn} onPress={handleMenuPress} hitSlop={8}>
+          <TouchableOpacity style={styles.headerMenuBtn} onPress={handleMenuPress} hitSlop={8} testID="menu-button" accessibilityRole="button" accessibilityLabel="옵션">
             <Ionicons name="ellipsis-horizontal" size={20} color={Colors.textSecondary} />
           </TouchableOpacity>
         ) : (

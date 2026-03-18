@@ -64,7 +64,10 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
     const initialize = async () => {
       try {
-        const initialSession = await authService.getSession();
+        const initialSession = await Promise.race([
+          authService.getSession(),
+          new Promise<null>((resolve) => setTimeout(() => resolve(null), 8000)),
+        ]);
         if (!mounted) return;
 
         setSession(initialSession);
