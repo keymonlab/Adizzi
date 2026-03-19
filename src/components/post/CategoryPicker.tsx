@@ -4,7 +4,7 @@ import { CATEGORIES } from '@/constants/categories';
 import type { Category } from '@/types/app.types';
 import { Ionicons } from '@expo/vector-icons';
 import { Colors } from '@/constants/colors';
-import { BorderRadius, FontSize, Spacing } from '@/constants/layout';
+import { BorderRadius, FontSize } from '@/constants/layout';
 
 interface CategoryPickerProps {
   selected: Category | undefined;
@@ -13,19 +13,23 @@ interface CategoryPickerProps {
 
 export function CategoryPicker({ selected, onSelect }: CategoryPickerProps): React.ReactElement {
   return (
-    <View style={styles.grid}>
+    <View style={styles.container}>
       {CATEGORIES.map((cat) => {
         const isSelected = selected === cat.value;
         return (
           <TouchableOpacity
             key={cat.value}
-            style={[styles.card, isSelected && styles.cardSelected]}
+            style={[styles.chip, isSelected && styles.chipSelected]}
             onPress={() => onSelect(cat.value)}
             activeOpacity={0.7}
             testID={`pick-category-${cat.value}`}
             accessibilityLabel={cat.label}
           >
-            <Ionicons name={cat.icon as any} size={22} color={isSelected ? Colors.primary : Colors.textSecondary} />
+            <Ionicons
+              name={cat.icon as any}
+              size={16}
+              color={isSelected ? Colors.textOnPrimary : Colors.textSecondary}
+            />
             <Text style={[styles.label, isSelected && styles.labelSelected]}>{cat.label}</Text>
           </TouchableOpacity>
         );
@@ -35,38 +39,33 @@ export function CategoryPicker({ selected, onSelect }: CategoryPickerProps): Rea
 }
 
 const styles = StyleSheet.create({
-  grid: {
+  container: {
     flexDirection: 'row',
     flexWrap: 'wrap',
-    gap: Spacing.sm,
+    gap: 6,
   },
-  card: {
-    flex: 1,
-    minWidth: '28%',
+  chip: {
+    flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'center',
-    backgroundColor: Colors.surface,
-    borderRadius: BorderRadius.md,
-    borderWidth: 1.5,
-    borderColor: Colors.border,
-    paddingVertical: Spacing.sm,
-    paddingHorizontal: Spacing.xs,
     gap: 4,
+    backgroundColor: Colors.surface,
+    borderRadius: BorderRadius.full,
+    borderWidth: 1,
+    borderColor: Colors.border,
+    paddingVertical: 6,
+    paddingHorizontal: 10,
   },
-  cardSelected: {
+  chipSelected: {
+    backgroundColor: Colors.primary,
     borderColor: Colors.primary,
-    backgroundColor: Colors.primaryLight,
-  },
-  icon: {
-    fontSize: 22,
   },
   label: {
-    fontSize: FontSize.sm,
+    fontSize: FontSize.xs,
     color: Colors.textSecondary,
     fontWeight: '500',
   },
   labelSelected: {
-    color: Colors.primary,
-    fontWeight: '700',
+    color: Colors.textOnPrimary,
+    fontWeight: '600',
   },
 });

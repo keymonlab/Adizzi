@@ -17,6 +17,7 @@ export default function LoginScreen() {
     setLoadingProvider(provider);
     try {
       await signIn(provider);
+      router.replace('/');
     } catch (err) {
       const message = err instanceof Error ? err.message : '로그인에 실패했습니다.';
       Alert.alert('로그인 오류', message);

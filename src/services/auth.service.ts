@@ -42,13 +42,20 @@ export const authService = {
     });
     if (error) throw error;
 
+    console.log('[OAuth] redirectTo:', redirectTo);
+    console.log('[OAuth] authUrl:', data?.url?.substring(0, 100));
+
     const res = await WebBrowser.openAuthSessionAsync(
       data?.url ?? '',
       redirectTo
     );
 
+    console.log('[OAuth] browser result type:', res.type);
     if (res.type === 'success') {
+      console.log('[OAuth] success url:', res.url?.substring(0, 100));
       await createSessionFromUrl(res.url);
+    } else {
+      console.log('[OAuth] browser dismissed or failed');
     }
   },
 
