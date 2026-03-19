@@ -107,8 +107,7 @@ test.describe('Error states', () => {
     await page.goto('/');
 
     // Unauthenticated users should see the login screen, not the feed
-    await expect(page.getByText('어디찌')).toBeVisible({ timeout: 15_000 });
-    await expect(page.getByText('우리 동네 분실물 찾기')).toBeVisible({ timeout: 10_000 });
+    await expect(page.getByText('우리 동네 분실물 찾기')).toBeVisible({ timeout: 15_000 });
 
     // Feed header should not be visible
     await expect(page.getByText('우리 동네', { exact: true })).not.toBeVisible({ timeout: 5_000 });

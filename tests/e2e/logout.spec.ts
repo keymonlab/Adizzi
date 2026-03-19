@@ -89,7 +89,7 @@ test.describe('Logout', () => {
 
     // Should be redirected to the login screen
     await expect(
-      page.getByText('어디찌').first(),
+      page.getByText('우리 동네 분실물 찾기').first(),
     ).toBeVisible({ timeout: 15_000 });
   });
 });

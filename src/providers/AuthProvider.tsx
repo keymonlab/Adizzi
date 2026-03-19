@@ -62,35 +62,45 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   useEffect(() => {
     let mounted = true;
 
-    const initialize = async () => {
-      try {
-        const initialSession = await Promise.race([
-          authService.getSession(),
-          new Promise<null>((resolve) => setTimeout(() => resolve(null), 8000)),
-        ]);
-        if (!mounted) return;
-
-        setSession(initialSession);
-        setUser(initialSession?.user ?? null);
-
-        if (initialSession?.user) {
-          hadSessionRef.current = true;
-          const fetched = await fetchProfile(initialSession.user.id);
-          if (!mounted) return;
-          setProfile(fetched);
-        }
-      } finally {
-        if (mounted) setLoading(false);
+    // Safety timeout: if INITIAL_SESSION never fires, stop loading
+    const timeout = setTimeout(() => {
+      if (mounted && loading) {
+        setLoading(false);
+        initializedRef.current = true;
       }
-    };
-
-    initialize().then(() => {
-      initializedRef.current = true;
-    });
+    }, 8000);
 
     const { data: { subscription } } = authService.onAuthStateChange(
-      async (event, newSession) => {
+      (event, newSession) => {
         if (!mounted) return;
+
+        // Handle initial session load
+        if (event === 'INITIAL_SESSION') {
+          setSession(newSession);
+          setUser(newSession?.user ?? null);
+
+          if (newSession?.user) {
+            hadSessionRef.current = true;
+            // Fetch profile before marking loading as complete
+            // Uses .then() (not await) to avoid holding the auth lock
+            fetchProfile(newSession.user.id).then((fetched) => {
+              if (!mounted) return;
+              setProfile(fetched);
+              setLoading(false);
+              initializedRef.current = true;
+            }).catch(() => {
+              if (!mounted) return;
+              setLoading(false);
+              initializedRef.current = true;
+            });
+          } else {
+            setLoading(false);
+            initializedRef.current = true;
+          }
+
+          clearTimeout(timeout);
+          return;
+        }
 
         // Detect unexpected session expiry after initial load
         if (
@@ -110,9 +120,9 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
         if (newSession?.user) {
           hadSessionRef.current = true;
-          const fetched = await fetchProfile(newSession.user.id);
-          if (!mounted) return;
-          setProfile(fetched);
+          fetchProfile(newSession.user.id).then((fetched) => {
+            if (mounted) setProfile(fetched);
+          }).catch((err) => console.warn('[AuthProvider] profile fetch failed:', err));
         } else {
           hadSessionRef.current = false;
           setProfile(null);
@@ -122,6 +132,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
     return () => {
       mounted = false;
+      clearTimeout(timeout);
       subscription.unsubscribe();
     };
   }, []);

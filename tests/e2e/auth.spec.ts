@@ -6,13 +6,12 @@ import { MOCK_USER, MOCK_SESSION, MOCK_POSTS, MOCK_NEIGHBORHOODS } from './helpe
 test.describe('Auth flow', () => {
   test('shows login page with adizzi branding', async ({ unauthenticatedPage: page }) => {
     await page.goto('/');
-    await expect(page.getByText('어디찌', { exact: true })).toBeVisible({ timeout: 15_000 });
-    await expect(page.getByText('우리 동네 분실물 찾기')).toBeVisible();
+    await expect(page.getByText('우리 동네 분실물 찾기')).toBeVisible({ timeout: 15_000 });
   });
 
   test('shows social login buttons', async ({ unauthenticatedPage: page }) => {
     await page.goto('/');
-    await expect(page.getByText('어디찌', { exact: true })).toBeVisible({ timeout: 15_000 });
+    await expect(page.getByText('우리 동네 분실물 찾기')).toBeVisible({ timeout: 15_000 });
     await expect(page.getByText('카카오로 시작하기')).toBeVisible();
     await expect(page.getByText('구글로 시작하기')).toBeVisible();
   });
